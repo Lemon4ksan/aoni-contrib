@@ -10,7 +10,7 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/lemon4ksan/aoni-x/otel"
+	"github.com/lemon4ksan/aoni-contrib/otel"
 )
 
 // FuzzParseTraceParent tests W3C traceparent parsing and round-trip invariant against arbitrary strings.

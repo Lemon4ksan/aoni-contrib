@@ -15,7 +15,7 @@ import (
 
 	golangssh "golang.org/x/crypto/ssh"
 
-	"github.com/lemon4ksan/aoni-x/ssh"
+	"github.com/lemon4ksan/aoni-contrib/ssh"
 )
 
 func BenchmarkParseKey(b *testing.B) {

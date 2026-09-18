@@ -14,7 +14,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/lemon4ksan/aoni-x/webtransport"
+	"github.com/lemon4ksan/aoni-contrib/webtransport"
 )
 
 func TestLiveChromiumEchoServer(t *testing.T) {

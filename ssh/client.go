@@ -26,7 +26,7 @@ import (
 	"golang.org/x/crypto/ssh"
 	"golang.org/x/net/proxy"
 
-	"github.com/lemon4ksan/aoni-x/ssh/sftp"
+	"github.com/lemon4ksan/aoni-contrib/ssh/sftp"
 )
 
 const (

@@ -9,7 +9,7 @@ import (
 	"encoding/binary"
 	"testing"
 
-	"github.com/lemon4ksan/aoni-x/socket"
+	"github.com/lemon4ksan/aoni-contrib/socket"
 )
 
 func FuzzLengthPrefixedFramer(f *testing.F) {

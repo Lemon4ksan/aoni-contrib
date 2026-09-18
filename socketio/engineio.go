@@ -14,7 +14,7 @@ import (
 	"github.com/lemon4ksan/foundation/async/fsm"
 	"github.com/lemon4ksan/foundation/generic"
 
-	"github.com/lemon4ksan/aoni/realtime/ws"
+	"github.com/lemon4ksan/aoni/x/realtime/ws"
 )
 
 type sioConnState int

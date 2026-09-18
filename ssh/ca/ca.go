@@ -16,7 +16,7 @@ import (
 
 	"golang.org/x/crypto/ssh"
 
-	aonissh "github.com/lemon4ksan/aoni-x/ssh"
+	aonissh "github.com/lemon4ksan/aoni-contrib/ssh"
 )
 
 // CA represents an enterprise-grade SSH Certificate Authority capable of signing

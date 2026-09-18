@@ -11,7 +11,7 @@ import (
 
 	"golang.org/x/crypto/ssh"
 
-	"github.com/lemon4ksan/aoni-x/ssh/agent"
+	"github.com/lemon4ksan/aoni-contrib/ssh/agent"
 )
 
 // Option configures an SSH Client and its underlying ssh.ClientConfig.

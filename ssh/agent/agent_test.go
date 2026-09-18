@@ -11,11 +11,11 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/lemon4ksan/foundation/testkit/assert"
-	"github.com/lemon4ksan/foundation/testkit/require"
+	"github.com/lemon4ksan/foundation/testing/assert"
+	"github.com/lemon4ksan/foundation/testing/require"
 	golangagent "golang.org/x/crypto/ssh/agent"
 
-	"github.com/lemon4ksan/aoni-x/ssh/agent"
+	"github.com/lemon4ksan/aoni-contrib/ssh/agent"
 )
 
 func startMockAgentServer(t *testing.T) string {

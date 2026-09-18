@@ -5,7 +5,6 @@
 package webtransport
 
 import (
-	"bytes"
 	"context"
 	"crypto/tls"
 	"errors"
@@ -19,11 +18,10 @@ import (
 	"time"
 
 	"github.com/lemon4ksan/foundation/generic"
-	"github.com/lemon4ksan/mach/client/h3"
-	coreh3 "github.com/lemon4ksan/mach/core/h3"
-	"github.com/lemon4ksan/mach/qpack"
-	"github.com/lemon4ksan/mach/quic"
-	"github.com/lemon4ksan/mach/quic/quicvarint"
+	"github.com/lemon4ksan/foundation/net/qpack"
+	"github.com/lemon4ksan/foundation/net/quic"
+	quicvarint "github.com/lemon4ksan/foundation/encoding/varint"
+	coreh3 "github.com/lemon4ksan/mach/proto/h3"
 )
 
 // DialConfig configures a WebTransport dialing operation.
@@ -208,21 +206,11 @@ func DialWithConn(
 		headers = append(headers, qpack.HeaderField{Name: strings.ToLower(k), Value: v})
 	}
 
-	var headerBuf bytes.Buffer
-
-	qpackEnc := qpack.NewEncoder(&headerBuf)
-	for _, h := range headers {
-		if err := qpackEnc.WriteField(h); err != nil {
-			_ = str.Close()
-			return nil, fmt.Errorf("aoni/webtransport: encode header %s: %w", h.Name, err)
-		}
-	}
-
-	encodedHeaders := headerBuf.Bytes()
+	encodedHeaders := qpack.NewEncoderWithDefaults(nil).EncodeHeaderList(sessionID, headers, nil)
 
 	var frameHdr [16]byte
 
-	b := quicvarint.Append(frameHdr[:0], h3.FrameTypeHeaders)
+	b := quicvarint.Append(frameHdr[:0], coreh3.FrameTypeHeaders)
 	b = quicvarint.Append(b, uint64(len(encodedHeaders)))
 
 	if _, err := str.Write(b); err != nil {
@@ -258,6 +246,19 @@ func DialWithConn(
 	return session, nil
 }
 
+type wtHeaderHandler struct {
+	res map[string]string
+	err error
+}
+
+func (h *wtHeaderHandler) OnHeaderDecoded(name, value string) {
+	h.res[name] = value
+}
+func (h *wtHeaderHandler) OnDecodingCompleted() {}
+func (h *wtHeaderHandler) OnDecodingErrorDetected(errorCode uint64, errorMessage string) {
+	h.err = errors.New(errorMessage)
+}
+
 // readH3ResponseHeaders parses incoming HTTP/3 HEADERS frame from the stream.
 func readH3ResponseHeaders(r io.Reader) (map[string]string, error) {
 	frameType, payloadLen, err := readH3FrameHeader(r)
@@ -265,7 +266,7 @@ func readH3ResponseHeaders(r io.Reader) (map[string]string, error) {
 		return nil, err
 	}
 
-	if frameType != h3.FrameTypeHeaders {
+	if frameType != coreh3.FrameTypeHeaders {
 		return nil, fmt.Errorf("aoni/webtransport: expected HEADERS frame (0x01), got 0x%02x", frameType)
 	}
 
@@ -278,18 +279,17 @@ func readH3ResponseHeaders(r io.Reader) (map[string]string, error) {
 		return nil, err
 	}
 
-	qpackDec := qpack.NewDecoder()
-	res := make(map[string]string)
+	decoder := qpack.NewDecoder(4096, 100, nil)
+	handler := &wtHeaderHandler{res: make(map[string]string)}
+	prog := decoder.CreateProgressiveDecoder(0, handler)
+	prog.Decode(payload)
+	prog.EndHeaderBlock()
 
-	err = qpackDec.DecodeFields(payload, func(hf qpack.HeaderField) bool {
-		res[hf.Name] = hf.Value
-		return true
-	})
-	if err != nil {
-		return nil, err
+	if handler.err != nil {
+		return nil, handler.err
 	}
 
-	return res, nil
+	return handler.res, nil
 }
 
 // readH3FrameHeader reads frame type and payload length varints.

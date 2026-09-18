@@ -18,7 +18,7 @@ import (
 	"github.com/lemon4ksan/foundation/async/logkit"
 	"github.com/lemon4ksan/foundation/generic"
 
-	"github.com/lemon4ksan/aoni-x/socket"
+	"github.com/lemon4ksan/aoni-contrib/socket"
 )
 
 type reconnectKeyType struct{}

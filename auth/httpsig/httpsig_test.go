@@ -18,10 +18,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/lemon4ksan/foundation/testkit/assert"
-	"github.com/lemon4ksan/foundation/testkit/require"
+	"github.com/lemon4ksan/foundation/testing/assert"
+	"github.com/lemon4ksan/foundation/testing/require"
 
-	"github.com/lemon4ksan/aoni-x/auth/httpsig"
+	"github.com/lemon4ksan/aoni-contrib/auth/httpsig"
 )
 
 // RFC 9421 Appendix B.1 Test Keys

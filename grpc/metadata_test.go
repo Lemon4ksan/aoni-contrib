@@ -11,12 +11,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/lemon4ksan/foundation/testkit/assert"
-	"github.com/lemon4ksan/foundation/testkit/require"
+	"github.com/lemon4ksan/foundation/testing/assert"
+	"github.com/lemon4ksan/foundation/testing/require"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
 	"github.com/lemon4ksan/aoni"
-	"github.com/lemon4ksan/aoni-x/grpc"
+	"github.com/lemon4ksan/aoni-contrib/grpc"
 	"github.com/lemon4ksan/aoni/option"
 )
 

@@ -12,7 +12,7 @@ import (
 
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	"github.com/lemon4ksan/aoni-x/grpc"
+	"github.com/lemon4ksan/aoni-contrib/grpc"
 )
 
 // FuzzGRPCWebFraming tests 5-byte Length-Prefixed-Message unmarshaling against arbitrary byte streams.

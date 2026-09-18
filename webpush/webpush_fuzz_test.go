@@ -11,7 +11,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/lemon4ksan/aoni-x/webpush"
+	"github.com/lemon4ksan/aoni-contrib/webpush"
 )
 
 func FuzzVAPIDKeys(f *testing.F) {

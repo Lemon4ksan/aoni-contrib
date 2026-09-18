@@ -7,7 +7,7 @@ package agent_test
 import (
 	"testing"
 
-	"github.com/lemon4ksan/aoni-x/ssh/agent"
+	"github.com/lemon4ksan/aoni-contrib/ssh/agent"
 )
 
 func BenchmarkAgent(b *testing.B) {

@@ -1,7 +1,7 @@
 
-# 🧩 aoni-x: Ecosystem Extensions
+# aoni-contrib: Ecosystem Extensions
 
-**aoni-x** contains the official application-layer extensions and experimental protocols for the [aoni](https://github.com/lemon4ksan/aoni) Zero-Allocation HTTP engine.
+**aoni-contrib** contains the official application-layer extensions and experimental protocols for the [aoni](https://github.com/lemon4ksan/aoni) Zero-Allocation HTTP engine.
 
 Following the design philosophy of `golang.org/x/...`, this repository houses advanced enterprise standards, complex cryptography, and specialized network protocols that sit *above* the standard L3/L4/L7 networking stack. By keeping these out of the core `aoni` repository, we guarantee the core remains dependency-free and permanently frozen for strict backward compatibility.
 

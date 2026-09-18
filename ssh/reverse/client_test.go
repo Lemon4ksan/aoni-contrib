@@ -12,10 +12,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/lemon4ksan/foundation/testkit/require"
+	"github.com/lemon4ksan/foundation/testing/require"
 	golangssh "golang.org/x/crypto/ssh"
 
-	"github.com/lemon4ksan/aoni-x/ssh/reverse"
+	"github.com/lemon4ksan/aoni-contrib/ssh/reverse"
 )
 
 func TestExposeLocal_CancelledContext(t *testing.T) {

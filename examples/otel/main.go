@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/lemon4ksan/aoni"
-	"github.com/lemon4ksan/aoni-x/otel"
+	"github.com/lemon4ksan/aoni-contrib/otel"
 	"github.com/lemon4ksan/aoni/mod"
 	"github.com/lemon4ksan/aoni/option"
 )

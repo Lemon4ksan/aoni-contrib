@@ -21,11 +21,11 @@ import (
 	"time"
 
 	"github.com/lemon4ksan/foundation/borrow"
-	"github.com/lemon4ksan/foundation/testkit/assert"
-	"github.com/lemon4ksan/foundation/testkit/require"
+	"github.com/lemon4ksan/foundation/testing/assert"
+	"github.com/lemon4ksan/foundation/testing/require"
 
 	"github.com/lemon4ksan/aoni"
-	"github.com/lemon4ksan/aoni/realtime/ws"
+	"github.com/lemon4ksan/aoni/x/realtime/ws"
 )
 
 func int64Ptr(i int64) *int64 {

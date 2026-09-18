@@ -7,9 +7,9 @@ package sqlcookie_test
 import (
 	"testing"
 
-	"github.com/lemon4ksan/foundation/testkit/assert"
+	"github.com/lemon4ksan/foundation/testing/assert"
 
-	"github.com/lemon4ksan/aoni-x/sqlcookie"
+	"github.com/lemon4ksan/aoni-contrib/sqlcookie"
 	"github.com/lemon4ksan/aoni/cookie"
 )
 

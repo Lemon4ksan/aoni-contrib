@@ -311,7 +311,7 @@ func buildOTLPJSON(batch []*SpanSnapshot) []byte {
 	buf.Reset()
 
 	buf.WriteString(
-		`{"resourceSpans":[{"scopeSpans":[{"scope":{"name":"github.com/lemon4ksan/aoni-x/otel","version":"1.0.0"},"spans":[`,
+		`{"resourceSpans":[{"scopeSpans":[{"scope":{"name":"github.com/lemon4ksan/aoni-contrib/otel","version":"1.0.0"},"spans":[`,
 	)
 
 	for i, s := range batch {

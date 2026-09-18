@@ -21,8 +21,8 @@ import (
 	pkgsftp "github.com/pkg/sftp"
 	golangssh "golang.org/x/crypto/ssh"
 
-	"github.com/lemon4ksan/aoni-x/ssh"
-	aonisftp "github.com/lemon4ksan/aoni-x/ssh/sftp"
+	"github.com/lemon4ksan/aoni-contrib/ssh"
+	aonisftp "github.com/lemon4ksan/aoni-contrib/ssh/sftp"
 )
 
 type mockServer struct {

@@ -8,9 +8,9 @@ import (
 	"net/netip"
 	"testing"
 
-	"github.com/lemon4ksan/foundation/testkit/assert"
+	"github.com/lemon4ksan/foundation/testing/assert"
 
-	"github.com/lemon4ksan/aoni-x/geoip"
+	"github.com/lemon4ksan/aoni-contrib/geoip"
 )
 
 func TestDB_NilSafety(t *testing.T) {

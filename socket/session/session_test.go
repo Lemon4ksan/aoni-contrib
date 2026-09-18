@@ -7,10 +7,10 @@ package session_test
 import (
 	"testing"
 
-	"github.com/lemon4ksan/foundation/testkit/assert"
-	"github.com/lemon4ksan/foundation/testkit/require"
+	"github.com/lemon4ksan/foundation/testing/assert"
+	"github.com/lemon4ksan/foundation/testing/require"
 
-	"github.com/lemon4ksan/aoni-x/socket/session"
+	"github.com/lemon4ksan/aoni-contrib/socket/session"
 )
 
 type userCreds struct {

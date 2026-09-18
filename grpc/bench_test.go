@@ -10,7 +10,7 @@ import (
 
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
-	"github.com/lemon4ksan/aoni-x/grpc"
+	"github.com/lemon4ksan/aoni-contrib/grpc"
 )
 
 func BenchmarkMarshalFrame_Uncompressed(b *testing.B) {

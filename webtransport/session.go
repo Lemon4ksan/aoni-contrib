@@ -10,8 +10,8 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/lemon4ksan/mach/quic"
-	"github.com/lemon4ksan/mach/quic/quicvarint"
+	"github.com/lemon4ksan/foundation/net/quic"
+	quicvarint "github.com/lemon4ksan/foundation/encoding/varint"
 )
 
 // Transport defines the underlying connection capabilities required for WebTransport over HTTP/3.
@@ -283,6 +283,9 @@ func (s *Session) CloseWithError(code uint32, msg string) error {
 	if s.closed.CompareAndSwap(false, true) {
 		s.mu.Lock()
 		s.closeErr = &SessionError{ErrorCode: code, Message: msg}
+		close(s.bidiStreams)
+		close(s.uniStreams)
+		close(s.datagrams)
 		s.mu.Unlock()
 
 		s.cancel()
@@ -300,10 +303,6 @@ func (s *Session) CloseWithError(code uint32, msg string) error {
 				_ = cs.Close()
 			}(s.controlStream, buf[:n])
 		}
-
-		close(s.bidiStreams)
-		close(s.uniStreams)
-		close(s.datagrams)
 	}
 
 	return nil
@@ -316,6 +315,9 @@ func (s *Session) Close() error {
 
 // EnqueueBidiStream delivers an incoming bidirectional stream to this session.
 func (s *Session) EnqueueBidiStream(stream *Stream) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+
 	if s.closed.Load() {
 		_ = stream.Close()
 		return
@@ -330,6 +332,9 @@ func (s *Session) EnqueueBidiStream(stream *Stream) {
 
 // EnqueueUniStream delivers an incoming unidirectional stream to this session.
 func (s *Session) EnqueueUniStream(stream *ReceiveStream) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+
 	if s.closed.Load() {
 		_ = stream.Close()
 		return
@@ -344,6 +349,9 @@ func (s *Session) EnqueueUniStream(stream *ReceiveStream) {
 
 // EnqueueDatagram delivers an incoming datagram to this session.
 func (s *Session) EnqueueDatagram(data []byte) {
+	s.mu.RLock()
+	defer s.mu.RUnlock()
+
 	if s.closed.Load() {
 		return
 	}

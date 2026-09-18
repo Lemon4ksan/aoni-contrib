@@ -15,7 +15,7 @@ import (
 	"time"
 
 	"github.com/lemon4ksan/aoni"
-	"github.com/lemon4ksan/aoni-x/socketio"
+	"github.com/lemon4ksan/aoni-contrib/socketio"
 )
 
 type PriceUpdate struct {

@@ -12,12 +12,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/lemon4ksan/foundation/testkit/assert"
-	"github.com/lemon4ksan/foundation/testkit/require"
+	"github.com/lemon4ksan/foundation/testing/assert"
+	"github.com/lemon4ksan/foundation/testing/require"
 	golangssh "golang.org/x/crypto/ssh"
 
-	"github.com/lemon4ksan/aoni-x/ssh"
-	"github.com/lemon4ksan/aoni-x/ssh/ca"
+	"github.com/lemon4ksan/aoni-contrib/ssh"
+	"github.com/lemon4ksan/aoni-contrib/ssh/ca"
 )
 
 func TestOptions(t *testing.T) {

@@ -52,7 +52,7 @@ func TestNewDarwinTunAdapter_InvalidName(t *testing.T) {
 			t.Parallel()
 
 			_, err := NewDarwinAdapter(name)
-			assert.ErrorIs(t, err, ErrInvalidUtunName, "name %s should return ErrInvalidUtunName", name)
+			assert.ErrorIsf(t, err, ErrInvalidUtunName, "name %s should return ErrInvalidUtunName", name)
 		})
 	}
 }

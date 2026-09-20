@@ -58,9 +58,9 @@ func NewSession(
 		transport:     transport,
 		ctx:           ctx,
 		cancel:        cancel,
-		bidiStreams:   make(chan *Stream, 64),
-		uniStreams:    make(chan *ReceiveStream, 64),
-		datagrams:     make(chan []byte, 128),
+		bidiStreams:   make(chan *Stream, 256),
+		uniStreams:    make(chan *ReceiveStream, 256),
+		datagrams:     make(chan []byte, 1024),
 	}
 
 	go s.controlLoop()
@@ -325,7 +325,7 @@ func (s *Session) EnqueueBidiStream(stream *Stream) {
 
 	select {
 	case s.bidiStreams <- stream:
-	default:
+	case <-s.ctx.Done():
 		_ = stream.Close()
 	}
 }
@@ -342,7 +342,7 @@ func (s *Session) EnqueueUniStream(stream *ReceiveStream) {
 
 	select {
 	case s.uniStreams <- stream:
-	default:
+	case <-s.ctx.Done():
 		_ = stream.Close()
 	}
 }

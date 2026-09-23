@@ -233,6 +233,51 @@ func (c *Connector[Endpoint]) IsConnected() bool {
 	return c.conn != nil && !c.closed.Load()
 }
 
+// CurrentEndpoint returns the active endpoint and reports whether a connection is established.
+func (c *Connector[Endpoint]) CurrentEndpoint() (Endpoint, bool) {
+	c.mu.RLock()
+	defer c.mu.RUnlock()
+
+	return c.lastEndpoint, c.conn != nil && !c.closed.Load()
+}
+
+// IsConnecting reports whether a transport connection dial is actively in progress.
+func (c *Connector[Endpoint]) IsConnecting() bool {
+	return c.isConnecting.Load()
+}
+
+// WaitForConnection blocks until an in-progress connection dial concludes or ctx expires.
+func (c *Connector[Endpoint]) WaitForConnection(ctx context.Context) error {
+	if c.IsConnected() {
+		return nil
+	}
+
+	ticker := time.NewTicker(25 * time.Millisecond)
+	defer ticker.Stop()
+
+	for {
+		select {
+		case <-ctx.Done():
+			return ctx.Err()
+		case <-c.ctx.Done():
+			return ErrClosed
+		case <-ticker.C:
+			if c.IsConnected() {
+				return nil
+			}
+
+			if !c.isConnecting.Load() {
+				return ErrDisconnected
+			}
+		}
+	}
+}
+
+// TriggerReconnect initiates an automatic reconnection loop if one is not already running.
+func (c *Connector[Endpoint]) TriggerReconnect() {
+	c.triggerReconnect()
+}
+
 // SetCipher sets or updates the active encryption cipher.
 func (c *Connector[Endpoint]) SetCipher(cipher socket.Cipher) {
 	c.mu.Lock()

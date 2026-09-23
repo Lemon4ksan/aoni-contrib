@@ -6,8 +6,8 @@
 //
 // # Architectural Pillars
 //
-//   - [github.com/lemon4ksan/aoni/realtime/socket/connector]: Resilient dialing, cipher integration, and exponential backoff auto-reconnect cycles.
-//   - [github.com/lemon4ksan/aoni/realtime/socket/processor]: Parallel worker pools for parsing raw framed byte streams across CPU cores.
-//   - [github.com/lemon4ksan/aoni/realtime/socket/dispatcher]: Dual-indexed routing (dense opcode array + sparse method map) and synchronous RPC correlation via jobs.Manager.
-//   - [github.com/lemon4ksan/aoni/realtime/socket/session]: Lock-free atomic session state snapshots.
+//   - [github.com/lemon4ksan/aoni-contrib/socket/connector]: Resilient dialing, cipher integration, and exponential backoff auto-reconnect cycles.
+//   - [github.com/lemon4ksan/aoni-contrib/socket/processor]: Parallel worker pools for parsing raw framed byte streams across CPU cores.
+//   - [github.com/lemon4ksan/aoni-contrib/socket/dispatcher]: Dual-indexed routing (dense opcode array + sparse method map) and synchronous RPC correlation via jobs.Manager.
+//   - [github.com/lemon4ksan/aoni-contrib/socket/session]: Lock-free atomic session state snapshots.
 package socket

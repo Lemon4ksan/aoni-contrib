@@ -34,7 +34,7 @@ const (
 )
 
 func initFSM() *fsm.FSM[sioConnState, sioEventType] {
-	sm := fsm.NewFSM[sioConnState, sioEventType](sioStateClosed)
+	sm := fsm.New[sioConnState, sioEventType](sioStateClosed)
 	sm.AddRules(
 		fsm.TransitionRule[sioConnState, sioEventType]{
 			From:  sioStateClosed,

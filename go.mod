@@ -3,9 +3,9 @@ module github.com/lemon4ksan/aoni-contrib
 go 1.27.0
 
 require (
-	github.com/lemon4ksan/aoni v0.7.0-rc.1.0.20260920194150-eaab0fb5365d
-	github.com/lemon4ksan/foundation v0.0.0-20260920191713-7709c688b2d7
-	github.com/lemon4ksan/mach v0.0.0-20260920191812-bb7ae0771871
+	github.com/lemon4ksan/aoni v0.7.0-rc.1.0.20260923050730-6edfbd8d275d
+	github.com/lemon4ksan/foundation v0.0.0-20260923050528-dc5d9a8c9c6b
+	github.com/lemon4ksan/mach v0.0.0-20260923050623-74d65af4cf4a
 	github.com/oschwald/maxminddb-golang/v2 v2.6.0
 	github.com/pkg/sftp v1.13.11
 	golang.org/x/crypto v0.57.0

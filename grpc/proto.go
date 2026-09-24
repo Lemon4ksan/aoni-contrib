@@ -10,11 +10,11 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/lemon4ksan/foundation/net/http/header"
+	"github.com/lemon4ksan/mach/proto/http/header"
 	"google.golang.org/protobuf/proto"
 
 	"github.com/lemon4ksan/aoni"
-	"github.com/lemon4ksan/aoni/x/codec/decode"
+	"github.com/lemon4ksan/aoni/codec/decode"
 	"github.com/lemon4ksan/aoni/mod"
 )
 

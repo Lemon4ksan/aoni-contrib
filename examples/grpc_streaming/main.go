@@ -20,7 +20,7 @@ import (
 	"net/http/httptest"
 	"time"
 
-	"github.com/lemon4ksan/foundation/net/http/header"
+	"github.com/lemon4ksan/mach/proto/http/header"
 	"google.golang.org/protobuf/types/known/wrapperspb"
 
 	"github.com/lemon4ksan/aoni"

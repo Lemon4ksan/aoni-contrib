@@ -3,10 +3,10 @@
 // license that can be found in the LICENSE file.
 
 // Package pkce implements RFC 7636 Proof Key for Code Exchange by OAuth Public Clients.
-// Core implementation is located in [github.com/lemon4ksan/foundation/net/pkce].
+// Core implementation is located in [github.com/lemon4ksan/aoni/pkce].
 package pkce
 
-import "github.com/lemon4ksan/foundation/net/pkce"
+import "github.com/lemon4ksan/aoni/pkce"
 
 // RFC 7636 §4.2 & RFC 9700 §2.1: PKCE Code Challenge Methods.
 const (

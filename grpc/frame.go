@@ -13,7 +13,7 @@ import (
 
 	"github.com/lemon4ksan/foundation/codec/compress/gzip"
 	"github.com/lemon4ksan/foundation/generic"
-	"github.com/lemon4ksan/foundation/net/grpcweb"
+	"github.com/lemon4ksan/mach/proto/grpcweb"
 	"google.golang.org/protobuf/proto"
 )
 

@@ -8,7 +8,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/lemon4ksan/foundation/net/http/header"
+	"github.com/lemon4ksan/mach/proto/http/header"
 )
 
 // Standard DPoP HTTP Headers and Authentication Schemes (RFC 9449 §4.1, §7.1, §8).

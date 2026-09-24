@@ -10,7 +10,7 @@ import (
 
 	"github.com/lemon4ksan/foundation/generic"
 
-	"github.com/lemon4ksan/aoni/x/realtime/ws"
+	"github.com/lemon4ksan/aoni/realtime/ws"
 )
 
 // BackoffStrategy defines the contract for calculating dynamic reconnect backoff delays.

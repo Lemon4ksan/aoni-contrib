@@ -18,7 +18,7 @@ import (
 	"time"
 
 	"github.com/lemon4ksan/foundation/generic"
-	"github.com/lemon4ksan/foundation/net/qpack"
+	"github.com/lemon4ksan/mach/qpack"
 	"github.com/lemon4ksan/foundation/net/quic"
 	quicvarint "github.com/lemon4ksan/foundation/encoding/varint"
 	coreh3 "github.com/lemon4ksan/mach/proto/h3"

@@ -13,7 +13,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/lemon4ksan/aoni/x/realtime/ws"
+	"github.com/lemon4ksan/aoni/realtime/ws"
 )
 
 const (

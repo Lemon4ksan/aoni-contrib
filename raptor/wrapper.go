@@ -9,7 +9,7 @@ import (
 	"encoding/binary"
 	"sync"
 
-	"github.com/lemon4ksan/mach/x/raptor"
+	"github.com/lemon4ksan/mach/proto/raptor"
 )
 
 // DatagramTransport defines the required QUIC methods to be wrapped.

@@ -204,8 +204,22 @@ func New[Endpoint any](cfg Config[Endpoint]) *Connector[Endpoint] {
 	l := generic.Ternary[logkit.Logger](cfg.Logger != nil, cfg.Logger, logkit.Discard)
 	cfg.ConnectTimeout = generic.Coalesce(cfg.ConnectTimeout, 20*time.Second)
 
+	defaultPolicy := DefaultReconnectPolicy[Endpoint]()
+
 	if cfg.ReconnectPolicy.InitialBackoff == 0 {
-		cfg.ReconnectPolicy = DefaultReconnectPolicy[Endpoint]()
+		cfg.ReconnectPolicy = defaultPolicy
+	}
+
+	if cfg.ReconnectPolicy.EndpointSelector == nil {
+		cfg.ReconnectPolicy.EndpointSelector = defaultPolicy.EndpointSelector
+	}
+
+	if cfg.ReconnectPolicy.MaxBackoff == 0 {
+		cfg.ReconnectPolicy.MaxBackoff = defaultPolicy.MaxBackoff
+	}
+
+	if cfg.ReconnectPolicy.BackoffFactor <= 1.0 {
+		cfg.ReconnectPolicy.BackoffFactor = defaultPolicy.BackoffFactor
 	}
 
 	return &Connector[Endpoint]{
@@ -233,7 +247,9 @@ func (c *Connector[Endpoint]) IsConnected() bool {
 	return c.conn != nil && !c.closed.Load()
 }
 
-// CurrentEndpoint returns the active endpoint and reports whether a connection is established.
+// CurrentEndpoint returns the active [Endpoint] and reports whether a connection
+// is actively established. If disconnected, it returns the most recently dialed target and false.
+// Safe for concurrent access.
 func (c *Connector[Endpoint]) CurrentEndpoint() (Endpoint, bool) {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
@@ -242,11 +258,14 @@ func (c *Connector[Endpoint]) CurrentEndpoint() (Endpoint, bool) {
 }
 
 // IsConnecting reports whether a transport connection dial is actively in progress.
+// Safe for concurrent access.
 func (c *Connector[Endpoint]) IsConnecting() bool {
 	return c.isConnecting.Load()
 }
 
-// WaitForConnection blocks until an in-progress connection dial concludes or ctx expires.
+// WaitForConnection blocks until an in-progress connection dial concludes, ctx expires,
+// or the connector is closed. Returns nil if connected, [ErrClosed] if closed,
+// [ErrDisconnected] if the dial fails without connection, or ctx.Err() on context cancellation.
 func (c *Connector[Endpoint]) WaitForConnection(ctx context.Context) error {
 	if c.IsConnected() {
 		return nil
@@ -273,7 +292,8 @@ func (c *Connector[Endpoint]) WaitForConnection(ctx context.Context) error {
 	}
 }
 
-// TriggerReconnect initiates an automatic reconnection loop if one is not already running.
+// TriggerReconnect initiates an automatic background reconnection loop if one is not
+// already active. Safe for concurrent access and deduplicated via internal atomic state.
 func (c *Connector[Endpoint]) TriggerReconnect() {
 	c.triggerReconnect()
 }
@@ -500,7 +520,15 @@ func (c *Connector[Endpoint]) reconnectLoop(ctx context.Context, policy Reconnec
 
 		c.mu.RUnlock()
 
-		target, ok := selector(endpoints)
+		var (
+			target Endpoint
+			ok     bool
+		)
+
+		if selector != nil {
+			target, ok = selector(endpoints)
+		}
+
 		if !ok {
 			c.mu.RLock()
 			target = c.lastEndpoint
